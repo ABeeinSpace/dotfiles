@@ -1,0 +1,12 @@
+#!/usr/bin/bash
+
+# Check if Hyprland is still running
+if pgrep -x Hyprland > /dev/null; then
+  hyprctl dispatch exit
+  sleep 2
+  if pgrep -x Hyprland > /dev/null; then
+    # Hyprland failed to exit. Nuke it from orbit
+    killall -9 Hyprland
+    # Vaxry I really hope your WM doesnt flip its shit if it gets kill -9'd lol
+  fi
+fi
