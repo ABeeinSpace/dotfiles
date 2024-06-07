@@ -120,8 +120,6 @@ alias maven-generateproject="mvn archetype:generate \
   -DarchetypeGroupId=co.gwllx.maven \
   -DarchetypeArtifactId=archetype-mvp"
 
-alias refresh-tmux="tmux source-file ~/.tmux/plugins/tmux/src/nord-status-content.conf && tmux source-file ~/.tmux.conf"
-
 # modern replacements for coreutils programs (aliased like this to preserve my sanity on systems that aren't The Twins:tm:)
 alias cat="bat"
 # alias man="tldr"
@@ -133,7 +131,9 @@ alias la="eza --icons=auto --long --all"
 alias mv="mv -iv"
 
 # Themes for ranger, bat, and fzf
+{{ if eq .chezmoi.os "linux" }}
 test -r "~/.dir_colors" && eval $(dircolors ~/.dir_colors) # ranger theme
+{{ end }}
 export BAT_THEME=Nord # bat theme
 export FZF_DEFAULT_OPTS='--color=bg+:#3B4252,bg:#2E3440,spinner:#81A1C1,hl:#616E88,fg:#D8DEE9,header:#616E88,info:#81A1C1,pointer:#81A1C1,marker:#81A1C1,fg+:#D8DEE9,prompt:#81A1C1,hl+:#81A1C1' # fzf Nord color scheme
 
@@ -151,13 +151,16 @@ export EDITOR="nvim"
 # start zoxide
 eval "$(zoxide init --cmd cd zsh)"  
 
+{{ if eq .chezmoi.os "linux" }}
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
+{{ end }}
 # Initialize Node Version Manager
 source /usr/share/nvm/init-nvm.sh
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-
+{{if eq .chezmoi.os "linux"}}
+export PATH="/home/aidanb/.local/share/JetBrains/Toolbox/scripts:$PATH"
+{{end}}
